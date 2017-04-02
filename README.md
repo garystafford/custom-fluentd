@@ -17,6 +17,6 @@ Modify the `Dockerfile` and `fluent.conf` as required.
 
 ## Build, Tag, Push Custom Image
 ```bash
-docker build -t garystafford/custom-fluentd:latest ./
+docker build -t garystafford/custom-fluentd:latest .
 docker image push garystafford/custom-fluentd:latest
 ```
