@@ -3,11 +3,8 @@ Used to build a custom Fluentd image with additional Fluentd plugins, including 
 
 ## Build New Image
 ```bash
-eval "$(docker-machine env -u)"
-
 mkdir custom-fluentd
 cd custom-fluentd
-
 curl https://raw.githubusercontent.com/fluent/fluentd-docker-image/master/v0.14/alpine-onbuild/fluent.conf > fluent.conf
 curl https://raw.githubusercontent.com/fluent/fluentd-docker-image/master/Dockerfile.sample > Dockerfile
 mkdir plugins
