@@ -1,22 +1,23 @@
-FROM fluent/fluentd:onbuild
+FROM fluent/fluentd:v0.14.15-onbuild
 
-LABEL maintainer "Gary A. Stafford <garystafford@rochester.rr.com>"
-ENV REFRESHED_AT 2017-04-02
+LABEL MAINTAINER "Gary A. Stafford <garystafford@rochester.rr.com>"
+ENV REFRESHED_AT 2017-09-13
 
 USER root
 
-RUN apk add --update --virtual .build-deps \
-  sudo build-base ruby-dev \
+RUN mkdir -p /home/fluent/docker/ \
+  && chmod -R 775 /home/fluent/docker/
 
-  # cutomize following instruction as you wish
+RUN apk update \
+  && apk add --update --virtual .build-deps \
+        sudo build-base ruby-dev \
   && sudo -u fluent gem install \
-    fluent-plugin-secure-forward \
-    fluent-plugin-elasticsearch \
-    fluent-plugin-concat \
-
+        fluent-plugin-copy_ex \
+        fluent-plugin-elasticsearch \
+        fluent-plugin-concat \
   && sudo -u fluent gem sources --clear-all \
   && apk del .build-deps \
   && rm -rf /var/cache/apk/* \
-    /home/fluent/.gem/ruby/2.3.0/cache/*.gem
+        /home/fluent/.gem/ruby/2.3.0/cache/*.gem
 
 USER fluent
