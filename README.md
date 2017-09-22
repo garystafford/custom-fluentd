@@ -15,3 +15,53 @@ mkdir plugins
 ```
 
 Modify the `Dockerfile` and `fluent.conf` as required.
+
+`fluent.conf`
+```text
+# fluentd config for logging demo
+
+<source>
+  @type forward
+  port 24224
+</source>
+
+<filter **>
+  @type concat
+  key log
+  stream_identity_key container_id
+  multiline_start_regexp /^\S+/
+  multiline_end_regexp /\s+.*more$/
+  flush_interval 120s
+  timeout_label @processdata
+</filter>
+
+<filter **>
+  @type record_transformer
+  enable_ruby true
+  remove_keys log
+  <record>
+    message ${record['log']}
+  </record>
+</filter>
+
+<label @ERROR>
+  <match **>
+    @type stdout
+  </match>
+</label>
+
+<label @processdata>
+  <match **>
+    @type stdout
+  </match>
+</label>
+
+<match **>
+  @type elasticsearch
+  logstash_format true
+  host elk
+  port 9200
+  index_name fluentd
+  type_name fluentd
+</match>
+```
