@@ -16,7 +16,10 @@ mkdir plugins
 
 Modify the `Dockerfile` and `fluent.conf` as required.
 
+## Fluentd Configuration
+
 `fluent.conf`
+
 ```text
 # fluentd config for logging demo
 
@@ -33,15 +36,6 @@ Modify the `Dockerfile` and `fluent.conf` as required.
   multiline_end_regexp /\s+.*more$/
   flush_interval 120s
   timeout_label @processdata
-</filter>
-
-<filter **>
-  @type record_transformer
-  enable_ruby true
-  remove_keys log
-  <record>
-    message ${record['log']}
-  </record>
 </filter>
 
 <label @ERROR>
