@@ -2,7 +2,7 @@
 
 Custom build of `fluent/fluentd` for article and demo on Docker logging to ELK on AWS.
 
-Used to build a custom Fluentd image with additional Fluentd plugins, including the Elasticsearch plugin. Follows instructions provided with the `fluent/fluentd` image on [Docker Hub](https://hub.docker.com/r/fluent/fluentd/).
+Used to build a custom Fluentd image with additional Fluentd plugins, including the Elasticsearch `fluent-plugin-elasticsearch` plugin. Follows instructions provided with the `fluent/fluentd` image on [Docker Hub](https://hub.docker.com/r/fluent/fluentd/).
 
 ## Build New Image
 
